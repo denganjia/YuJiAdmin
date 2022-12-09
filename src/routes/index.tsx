@@ -4,11 +4,13 @@ import ErrorPage from "@/error-page";
 import Contact, { loader as contactLoader, action as contactAction } from "./contact";
 import EditContact, { action as editAction } from "./edit";
 import { action as destroyAction } from "./destory";
-import { Index } from "@/layout/index";
+import { Index as Layout } from "@/layout";
+import Dashboard from "@/views/Dashboard";
+
 export const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <Index></Index>,
+		element: <Layout></Layout>,
 		errorElement: <ErrorPage />,
 		loader: rootLoader,
 		action: rootAction,
@@ -17,22 +19,22 @@ export const router = createBrowserRouter([
 				path: "contacts/:contactId",
 				element: <Contact />,
 				loader: contactLoader,
-				action: contactAction,
+				action: contactAction
 			},
 			{
 				path: "contacts/:contactId/edit",
 				element: <EditContact />,
 				loader: contactLoader,
-				action: editAction,
+				action: editAction
 			},
 			{
 				path: "contacts/:contactId/destroy",
-				action: destroyAction,
+				action: destroyAction
 			},
 			{
 				path: "dashboard",
-				element: <div>dashboard</div>,
-			},
-		],
-	},
+				element: <Dashboard></Dashboard>
+			}
+		]
+	}
 ]);

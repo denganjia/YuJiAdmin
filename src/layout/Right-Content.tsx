@@ -1,5 +1,5 @@
 import { Space, Button, Avatar, Dropdown } from "antd";
-import { SettingOutlined, UserOutlined, LogoutOutlined } from "@ant-design/icons";
+import { SettingOutlined, UserOutlined, LogoutOutlined, BellOutlined } from "@ant-design/icons";
 import { FC } from "react";
 
 const RightContent: FC = () => {
@@ -8,16 +8,17 @@ const RightContent: FC = () => {
 			label: "退出登录",
 			key: "logout",
 			icon: <LogoutOutlined />,
-			danger: true,
-		},
+			danger: true
+		}
 	];
 	return (
 		<div className="header-right">
 			<Space>
-				<Dropdown menu={{ items: options }} trigger={["click"]} arrow>
-					<Avatar icon={<UserOutlined />}></Avatar>
+				<Button type="text" icon={<BellOutlined style={{ fontSize: 16 }}></BellOutlined>}></Button>
+				<Button type="text" icon={<SettingOutlined style={{ fontSize: 16 }}></SettingOutlined>}></Button>
+				<Dropdown menu={{ items: options }} trigger={["hover"]}>
+					<Avatar src="https://hooks.spicyboy.cn/assets/png/avatar-4ef6186b.png"></Avatar>
 				</Dropdown>
-				<Button shape="circle" type="primary" icon={<SettingOutlined></SettingOutlined>} size="middle"></Button>
 			</Space>
 		</div>
 	);

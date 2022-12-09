@@ -8,13 +8,12 @@ export const Nav: FC = () => {
 		{
 			label: "总控台",
 			key: "dashboard",
-			icon: <DashboardOutlined />,
-		},
+			icon: <DashboardOutlined />
+		}
 	];
 	const navigate = useNavigate();
 	const menuSelect = ({ key }: any) => {
-		console.log(key);
 		navigate(key);
 	};
-	return <Menu theme="dark" items={items} onSelect={menuSelect}></Menu>;
+	return <Menu style={{ height: "100%", border: "none" }} theme="light" items={items} onSelect={menuSelect}></Menu>;
 };

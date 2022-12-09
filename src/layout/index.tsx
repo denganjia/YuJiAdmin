@@ -1,35 +1,47 @@
-import { Layout } from "antd";
+import { Layout, theme } from "antd";
 import { Outlet } from "react-router-dom";
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import "./index.less";
 import logo from "@/assets/images/logo.png";
 import { Nav } from "./Menu";
 import RightContent from "./Right-Content";
+import { Config } from "@/config";
+import { useNavigate } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 export const Index: FC = () => {
 	const [collapsed, setCollapsed] = useState(false);
+	const {
+		token: { colorBgContainer }
+	} = theme.useToken();
+	const navigate = useNavigate();
+	useEffect(() => {
+		navigate(Config.HOME_URL);
+	}, []);
 	return (
 		<Layout>
-			<Sider
-				collapsible
-				collapsed={collapsed}
-				onCollapse={collapsed => {
-					setCollapsed(collapsed);
-				}}>
-				<div className="sider-header">
-					<img src={logo} alt="" className="logo" />
-					{!collapsed && <span className="title">YuJi Admin</span>}
-				</div>
-				<Nav></Nav>
-			</Sider>
-			<Layout>
-				<Header style={{ padding: 0 }}>
-					<div className="header">
-						<div className="header-left"></div>
-						<RightContent></RightContent>
+			<Header style={{ padding: "0 20px", background: colorBgContainer }}>
+				<div className="header">
+					<div className="header-left">
+						<div className="sider-header">
+							<img src={logo} alt="" className="logo" />
+							<span className="title">YuJi Admin</span>
+						</div>
 					</div>
-				</Header>
+					<RightContent></RightContent>
+				</div>
+			</Header>
+			<Layout>
+				<Sider
+					theme="light"
+					collapsible
+					collapsed={collapsed}
+					onCollapse={collapsed => {
+						setCollapsed(collapsed);
+					}}
+				>
+					<Nav></Nav>
+				</Sider>
 				<Content>
 					<Outlet></Outlet>
 				</Content>
