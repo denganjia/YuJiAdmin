@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/dashboard",
+    "element": "Dashboard/index",
+    "label": "总控台",
+    "icon": "DashboardOutlined"
+  },
+  {
+    "path": "/system",
+    "element": "System/index",
+    "label": "系统监控",
+    "icon": "BugOutlined"
+  }
+]

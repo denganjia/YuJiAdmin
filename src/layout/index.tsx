@@ -43,7 +43,9 @@ export const Index: FC = () => {
 					<Nav></Nav>
 				</Sider>
 				<Content>
-					<Outlet></Outlet>
+					<div className="content">
+						<Outlet></Outlet>
+					</div>
 				</Content>
 			</Layout>
 		</Layout>
