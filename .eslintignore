@@ -1,0 +1,9 @@
+*.sh
+node_modules
+.vscode
+.idea
+dist
+/public
+.husky
+.eslintrc.cjs
+.prettierrc.cjs
