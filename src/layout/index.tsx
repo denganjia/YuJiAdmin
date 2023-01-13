@@ -1,49 +1,50 @@
 import { Layout, theme } from "antd";
-import { Outlet } from "react-router-dom";
-import { FC, useState, useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { FC, useEffect } from "react";
 import "./index.less";
 import logo from "@/assets/images/logo.png";
 import { Nav } from "./Menu";
 import RightContent from "./Right-Content";
+import LeftContent from "./LeftContent";
 import { Config } from "@/config";
-import { useNavigate } from "react-router-dom";
+import { useShallowBoundStore } from "@/store";
 
 const { Header, Sider, Content } = Layout;
-export const Index: FC = () => {
-	const [collapsed, setCollapsed] = useState(false);
-	const {
-		token: { colorBgContainer }
-	} = theme.useToken();
+const Index: FC = () => {
+	const [collapsed, collapse] = useShallowBoundStore(state => [state.collapsed, state.collapse]);
+	const { token } = theme.useToken();
 	const navigate = useNavigate();
 	useEffect(() => {
 		navigate(Config.HOME_URL);
 	}, []);
 	return (
 		<Layout>
-			<Header style={{ padding: "0 20px", background: colorBgContainer }}>
-				<div className="header">
-					<div className="header-left">
-						<div className="sider-header">
-							<img src={logo} alt="" className="logo" />
-							<span className="title">YuJi Admin</span>
-						</div>
-					</div>
-					<RightContent></RightContent>
+			<Sider
+				theme="light"
+				collapsible
+				collapsed={collapsed}
+				onCollapse={collapsed => {
+					collapse(collapsed);
+				}}
+			>
+				<div className="sider-header">
+					<img src={logo} alt="" className="logo" style={{ display: collapsed ? "block" : "none" }} />
+					<span className={"title"} style={{ color: token.colorText, display: collapsed ? "none" : "block" }}>
+						YuJi Admin
+					</span>
 				</div>
-			</Header>
+				<Nav></Nav>
+			</Sider>
+
 			<Layout>
-				<Sider
-					theme="light"
-					collapsible
-					collapsed={collapsed}
-					onCollapse={collapsed => {
-						setCollapsed(collapsed);
-					}}
-				>
-					<Nav></Nav>
-				</Sider>
+				<Header style={{ padding: "0 20px 0 0", background: token.colorBgContainer }}>
+					<div className="header">
+						<LeftContent></LeftContent>
+						<RightContent></RightContent>
+					</div>
+				</Header>
 				<Content>
-					<div className="content">
+					<div className="content" style={{ color: token.colorText }}>
 						<Outlet></Outlet>
 					</div>
 				</Content>
@@ -51,3 +52,5 @@ export const Index: FC = () => {
 		</Layout>
 	);
 };
+
+export default Index;

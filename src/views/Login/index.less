@@ -1,0 +1,62 @@
+.main-box {
+	position: relative;
+	width: 100%;
+	height: 100%;
+
+	.header {
+		position: absolute;
+		top: 0;
+		left: 0;
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: row-reverse;
+		align-items: center;
+		justify-content: flex-start;
+		width: 100%;
+		height: 64px;
+		padding-right: 42px;
+
+		.icon {
+			padding: 12px;
+			cursor: pointer;
+		}
+	}
+
+	.login-box {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		z-index: 10;
+		width: 582px;
+		height: 360px;
+		padding: 20px 40px;
+		margin: auto;
+		color: rgb(255 255 255);
+		border: 1px solid rgb(255 255 255 / 18%);
+		//box-shadow: rgba(142, 142, 142, 0.19) 0 6px 15px 0;
+		//-webkit-box-shadow: rgba(142, 142, 142, 0.19) 0 6px 15px 0;
+		border-radius: 25px;
+		transform: translate(-50%, -60%);
+		backdrop-filter: blur(8px);
+
+		.title {
+			text-align: center;
+		}
+
+		.form {
+			margin-top: 30px;
+
+			.space {
+				display: flex;
+				justify-content: space-between;
+			}
+		}
+	}
+
+	.footer {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+	}
+}

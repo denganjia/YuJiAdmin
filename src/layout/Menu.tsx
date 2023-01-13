@@ -1,34 +1,40 @@
 import { Menu } from "antd";
-import { FC, useEffect, useState } from "react";
-import { Icon } from "@/Components/Icon";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { FC, useEffect, useState } from "react";
+import { useLocation, useMatches, useNavigate } from "react-router-dom";
 import router from "@/routes/router.json";
+import { getMenuItems } from "@/utils/getMenuItems";
 
 export const Nav: FC = () => {
-	const items = router.map(route => {
-		return {
-			label: route.label,
-			key: route.path,
-			icon: <Icon type={route.icon}></Icon>
-		};
-	});
 	const navigate = useNavigate();
 	const location = useLocation();
+	const matches = useMatches();
+	const [activeKey, setActiveKey] = useState<string[]>([]);
+
+	// 根据JSON获取左侧可见路由
+	const items = getMenuItems(router);
 	const menuSelect = ({ key }: any) => {
 		navigate(key);
 		setActiveKey([key]);
 	};
-	const [activeKey, setActiveKey] = useState<string[]>([]);
+	// 根据路由变化，设置activeKey
 	useEffect(() => {
-		setActiveKey([location.pathname]);
+		let currentMatch = matches[matches.length - 1];
+		if ((currentMatch.data as any).activeKey) {
+			setActiveKey([(currentMatch.data as any).activeKey]);
+		} else {
+			setActiveKey([location.pathname]);
+		}
 	}, [location]);
 	return (
-		<Menu
-			style={{ height: "100%", border: "none" }}
-			selectedKeys={activeKey}
-			theme="light"
-			items={items}
-			onSelect={menuSelect}
-		></Menu>
+		<nav className="nav-content">
+			<Menu
+				style={{ border: "none", height: "100%" }}
+				selectedKeys={activeKey}
+				theme="light"
+				items={items}
+				mode={"inline"}
+				onSelect={menuSelect}
+			></Menu>
+		</nav>
 	);
 };
