@@ -29,10 +29,12 @@ export default function Login() {
 	}, [themeType]);
 
 	// 表单提交
-	const onFinished: FormProps["onFinish"] = val => {
-		login(val);
-		if (val && val.account === "admin" && val.password === "123456") {
+	const onFinished: FormProps["onFinish"] = async val => {
+		const { code, data } = await login(val);
+		if (code === 200) {
+			message.success("欢迎登录");
 			navigate("/dashboard");
+			localStorage.setItem("token", data.token);
 		} else {
 			message.error("账号密码不正确！");
 		}

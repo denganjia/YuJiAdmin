@@ -45,3 +45,9 @@ export type Routes = {
 		activeKey?: string;
 	};
 }[];
+
+export type Response<T = any> = {
+	code: number;
+	data: T;
+	msg: string;
+};

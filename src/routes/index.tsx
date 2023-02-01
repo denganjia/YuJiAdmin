@@ -18,6 +18,7 @@ const getRoutes = async (router?: Routes, parent: string = "", arr: any = []) =>
 			index: route.index ?? false,
 			path: parent + (route.path ?? ""),
 			errorElement: <ErrorPage />,
+			// 此处加载路由JSON中携带的数据
 			loader: () => {
 				return route.data || {};
 			}

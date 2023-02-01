@@ -5,17 +5,24 @@ import { router } from "@/routes";
 import React, { Suspense } from "react";
 import routerJson from "@/routes/router.json";
 import { transformJson } from "@/utils/transformJson";
-import { useBoundStore } from "@/store";
+import { useBoundStore, useShallowBoundStore } from "@/store";
 
 const App = () => {
-	const themeType = useBoundStore(state => state.theme);
+	// 暗色模式 和 主色切换
+	const [themeType, primaryColor] = useShallowBoundStore(state => [state.theme, state.primaryColor]);
 	const initRegxRouteJson = useBoundStore(state => state.initRegxRouteJson);
 	transformJson(routerJson).then(res => {
 		initRegxRouteJson(res);
 	});
 	return (
 		<Suspense fallback={<Spin />}>
-			<ConfigProvider locale={zhCN} theme={{ algorithm: themeType === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
+			<ConfigProvider
+				locale={zhCN}
+				theme={{
+					algorithm: themeType === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
+					token: { colorPrimary: primaryColor }
+				}}
+			>
 				<RouterProvider router={router}></RouterProvider>
 			</ConfigProvider>
 		</Suspense>

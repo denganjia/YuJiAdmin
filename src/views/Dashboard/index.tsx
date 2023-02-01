@@ -1,16 +1,24 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Card, Col, Row, theme } from "antd";
 import { IconFont } from "@/components/Icon";
 import "./index.less";
+import { Dashboard, getStatisticsApi } from "@/api/modules/dashborad";
 
 const Index: FC = () => {
 	const { token } = theme.useToken();
+	const [statistics, setStatistics] = useState<Partial<Dashboard.Statistics>>({});
+
+	useEffect(() => {
+		getStatisticsApi().then(({ data }) => {
+			setStatistics(data);
+		});
+	}, []);
 	const icons = [
 		{
 			name: "icon-user",
 			background: "rgb(174, 215, 255, 0.2)",
 			title: "总用户",
-			value: 1121
+			value: statistics.user
 		},
 		{
 			name: "icon-download",

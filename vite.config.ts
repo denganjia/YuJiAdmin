@@ -15,8 +15,8 @@ export default defineConfig({
 	server: {
 		proxy: {
 			"/api": {
-				// 测试
-				target: "http://192.168.0.61:22102",
+				// api-fox 云端mock
+				target: "https://mock.apifox.cn/m1/2197634-0-default",
 				changeOrigin: true,
 				rewrite: path => path.replace(/^\/api/, "")
 			}
