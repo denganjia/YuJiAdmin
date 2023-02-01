@@ -9,7 +9,11 @@ import { useBoundStore, useShallowBoundStore } from "@/store";
 
 const App = () => {
 	// 暗色模式 和 主色切换
-	const [themeType, primaryColor] = useShallowBoundStore(state => [state.theme, state.primaryColor]);
+	const [themeType, primaryColor, componentSize] = useShallowBoundStore(state => [
+		state.theme,
+		state.primaryColor,
+		state.componentSize
+	]);
 	const initRegxRouteJson = useBoundStore(state => state.initRegxRouteJson);
 	transformJson(routerJson).then(res => {
 		initRegxRouteJson(res);
@@ -22,6 +26,7 @@ const App = () => {
 					algorithm: themeType === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
 					token: { colorPrimary: primaryColor }
 				}}
+				componentSize={componentSize}
 			>
 				<RouterProvider router={router}></RouterProvider>
 			</ConfigProvider>
