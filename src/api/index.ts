@@ -27,7 +27,7 @@ class Request {
 		this.instance.defaults.headers.common["apifoxToken"] = localStorage.getItem("token") ?? "";
 		// 请求拦截器
 		this.instance.interceptors.request.use(
-			(config: AxiosRequestConfig) => {
+			config => {
 				return config;
 			},
 			error => {
