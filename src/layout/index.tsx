@@ -12,6 +12,7 @@ import { useShallowBoundStore } from "@/store";
 const { Header, Sider, Content } = Layout;
 const Index: FC = () => {
 	const [collapsed, collapse] = useShallowBoundStore(state => [state.collapsed, state.collapse]);
+	const siderBarStyle = useShallowBoundStore(state => state.siderBarStyle);
 	const { token } = theme.useToken();
 	const navigate = useNavigate();
 	useEffect(() => {
@@ -20,7 +21,7 @@ const Index: FC = () => {
 	return (
 		<Layout>
 			<Sider
-				theme="light"
+				theme={siderBarStyle}
 				collapsible
 				collapsed={collapsed}
 				onCollapse={collapsed => {
@@ -29,7 +30,10 @@ const Index: FC = () => {
 			>
 				<div className="sider-header">
 					<img src={logo} alt="" className="logo" style={{ display: collapsed ? "block" : "none" }} />
-					<span className={"title"} style={{ color: token.colorText, display: collapsed ? "none" : "block" }}>
+					<span
+						className={"title"}
+						style={{ color: siderBarStyle === "light" ? token.colorText : "#ffffff", display: collapsed ? "none" : "block" }}
+					>
 						YuJi Admin
 					</span>
 				</div>

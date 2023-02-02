@@ -2,28 +2,45 @@ import zhCN from "antd/locale/zh_CN";
 import { ConfigProvider, Spin, theme } from "antd";
 import { RouterProvider } from "react-router-dom";
 import { router } from "@/routes";
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import routerJson from "@/routes/router.json";
 import { transformJson } from "@/utils/transformJson";
 import { useBoundStore, useShallowBoundStore } from "@/store";
 
 const App = () => {
 	// 暗色模式 和 主色切换
-	const [themeType, primaryColor, componentSize] = useShallowBoundStore(state => [
+	const [themeType, primaryColor, componentSize, compact] = useShallowBoundStore(state => [
 		state.theme,
 		state.primaryColor,
-		state.componentSize
+		state.componentSize,
+		state.compact
 	]);
 	const initRegxRouteJson = useBoundStore(state => state.initRegxRouteJson);
 	transformJson(routerJson).then(res => {
 		initRegxRouteJson(res);
 	});
+	const [algorithm, setAlgorithm] = useState([]);
+	useEffect(() => {
+		let res: any = [];
+		if (themeType === "dark") {
+			res.push(theme.darkAlgorithm);
+		} else {
+			res.push(theme.defaultAlgorithm);
+		}
+		if (compact) {
+			res.push(theme.compactAlgorithm);
+		}
+		setAlgorithm(() => {
+			return res;
+		});
+	}, [themeType, compact]);
 	return (
 		<Suspense fallback={<Spin />}>
 			<ConfigProvider
 				locale={zhCN}
 				theme={{
-					algorithm: themeType === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
+					// algorithm: themeType === "dark" ? theme.darkAlgorithm : [theme.defaultAlgorithm, theme.compactAlgorithm],
+					algorithm: algorithm,
 					token: { colorPrimary: primaryColor }
 				}}
 				componentSize={componentSize}

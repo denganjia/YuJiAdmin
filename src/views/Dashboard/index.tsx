@@ -24,19 +24,19 @@ const Index: FC = () => {
 			name: "icon-download",
 			background: "rgb(255, 143, 73, 0.2)",
 			title: "下载量",
-			value: 1121
+			value: statistics.download
 		},
 		{
 			name: "icon-online",
 			background: "rgb(128, 184, 248, 0.2)",
 			title: "当前在线",
-			value: 1121
+			value: statistics.online
 		},
 		{
 			name: "icon-version",
 			background: "rgba(255, 163, 59, 0.2)",
 			title: "当前版本",
-			value: 1121
+			value: statistics.version
 		}
 	];
 	return (

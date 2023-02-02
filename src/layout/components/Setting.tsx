@@ -1,6 +1,5 @@
-import type { RadioChangeEvent } from "antd";
-import { Descriptions, Drawer, Radio, Switch, theme } from "antd";
-import { useShallowBoundStore } from "@/store";
+import { Descriptions, Divider, Drawer, Radio, RadioChangeEvent, Switch, theme } from "antd";
+import { useBoundStore, useShallowBoundStore } from "@/store";
 import { debounce } from "lodash";
 import React from "react";
 
@@ -21,7 +20,16 @@ const Setting = (props: Props) => {
 			state.changeComponentSize
 		]
 	);
+	// 侧边栏样式
+	const [siderBarStyle, changeSiderBar] = useShallowBoundStore(state => [state.siderBarStyle, state.changeSiderBar]);
 
+	// sider bar change
+	const siderChange = (e: RadioChangeEvent) => {
+		changeSiderBar(e.target.value);
+	};
+
+	// 紧凑布局
+	const [compact, toggleCompact] = useShallowBoundStore(state => [state.compact, state.toggleCompact]);
 	// color pick style
 	const style: React.CSSProperties = {
 		background: "rgba(0,0,0,0)",
@@ -34,25 +42,22 @@ const Setting = (props: Props) => {
 	};
 	// Switch 切换
 	const onSwitchChange = (val: boolean) => {
-		if (val) {
-			changeTheme("dark");
-		} else {
-			changeTheme("light");
-		}
+		changeTheme(val ? "dark" : "light");
 	};
 	// 组件大小切换
 	const radioChange = (event: RadioChangeEvent) => {
 		changeComponentSize(event.target.value);
 	};
 	// 预设颜色
-	const colors = ["#faad14", "#fadb14", "#a0d911", "#52c41a", "#13c2c2", "#1677ff", "#2f54eb", "#722ed1", "#eb2f96", "#18a058"];
+	const presetColors = useBoundStore(state => state.presetColors);
 	return (
 		<Drawer open={props.open} width={500} title={"系统设置"} onClose={props.onClose} placement={"right"}>
+			<Divider>样式设置</Divider>
 			<Descriptions column={1} bordered>
 				<Item label={"主题色"}>
 					<input type="color" style={style} defaultValue={primaryColor} onChange={debounce(onColorChange, 250)} list={"colors"} />
 					<datalist id="colors">
-						{colors.map(color => (
+						{presetColors.map(color => (
 							<option value={color} key={color}></option>
 						))}
 					</datalist>
@@ -66,6 +71,18 @@ const Setting = (props: Props) => {
 						<Radio.Button value={"default"}>默认</Radio.Button>
 						<Radio.Button value={"large"}>大</Radio.Button>
 					</Radio.Group>
+				</Item>
+				<Item label={"侧边栏样式"}>
+					<Radio.Group defaultValue={siderBarStyle} onChange={siderChange}>
+						<Radio.Button value={"light"}>亮色</Radio.Button>
+						<Radio.Button value={"dark"}>暗色</Radio.Button>
+					</Radio.Group>
+				</Item>
+			</Descriptions>
+			<Divider>布局设置</Divider>
+			<Descriptions bordered column={1}>
+				<Item label={"紧凑布局"}>
+					<Switch checked={compact} onChange={toggleCompact}></Switch>
 				</Item>
 			</Descriptions>
 		</Drawer>

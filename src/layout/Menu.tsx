@@ -3,13 +3,14 @@ import React, { FC, useEffect, useState } from "react";
 import { useLocation, useMatches, useNavigate } from "react-router-dom";
 import router from "@/routes/router.json";
 import { getMenuItems } from "@/utils/getMenuItems";
+import { useShallowBoundStore } from "@/store";
 
 export const Nav: FC = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const matches = useMatches();
 	const [activeKey, setActiveKey] = useState<string[]>([]);
-
+	const siderBarStyle = useShallowBoundStore(state => state.siderBarStyle);
 	// 根据JSON获取左侧可见路由
 	const items = getMenuItems(router);
 	const menuSelect = ({ key }: any) => {
@@ -30,7 +31,7 @@ export const Nav: FC = () => {
 			<Menu
 				style={{ border: "none", height: "100%" }}
 				selectedKeys={activeKey}
-				theme="light"
+				theme={siderBarStyle}
 				items={items}
 				mode={"inline"}
 				onSelect={menuSelect}
