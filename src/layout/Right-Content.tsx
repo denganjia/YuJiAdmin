@@ -1,13 +1,16 @@
 import { Avatar, Button, Dropdown, MenuProps, Space } from "antd";
-import { BellOutlined, LogoutOutlined, SettingOutlined } from "@ant-design/icons";
+import { LogoutOutlined, SettingOutlined, TranslationOutlined } from "@ant-design/icons";
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconFont } from "@/components/Icon";
 import { useShallowBoundStore } from "@/store";
 import Setting from "@/layout/components/Setting";
+import { useTranslation } from "react-i18next";
 
 const RightContent: FC = () => {
 	const navigate = useNavigate();
+	// 国际化
+	const { t } = useTranslation();
 	const [theme, changeTheme] = useShallowBoundStore(state => [state.theme, state.changeTheme]);
 	// 此处简化一下，在下面使用就用dark
 	const [dark, setDark] = useState(theme === "dark");
@@ -17,7 +20,7 @@ const RightContent: FC = () => {
 
 	const options = [
 		{
-			label: "退出登录",
+			label: t("login.logout"),
 			key: "logout",
 			icon: <LogoutOutlined />,
 			danger: true
@@ -32,6 +35,9 @@ const RightContent: FC = () => {
 	};
 	// 系统设置
 	const [open, setOpen] = useState(false);
+
+	// 设置语言
+	const [locale, locales, changeLocale] = useShallowBoundStore(state => [state.locale, state.locales, state.changeLocale]);
 	return (
 		<div className="header-right">
 			<Space>
@@ -42,7 +48,18 @@ const RightContent: FC = () => {
 						changeTheme(dark ? "light" : "dark");
 					}}
 				></Button>
-				<Button type="text" icon={<BellOutlined style={{ fontSize: 16 }}></BellOutlined>}></Button>
+				<Dropdown
+					menu={{
+						items: locales,
+						selectable: true,
+						defaultSelectedKeys: [locale],
+						onClick: ({ key }) => {
+							changeLocale(key);
+						}
+					}}
+				>
+					<Button type="text" icon={<TranslationOutlined style={{ fontSize: 16 }}></TranslationOutlined>}></Button>
+				</Dropdown>
 				<Button
 					type="text"
 					icon={

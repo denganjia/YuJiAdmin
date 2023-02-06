@@ -1,14 +1,15 @@
-import { createMenuSlice, createThemeSlice, MenuSlice, ThemeSlice } from "@/store/modules";
+import { createLocaleSlice, createMenuSlice, createThemeSlice, LocaleSlice, MenuSlice, ThemeSlice } from "@/store/modules";
 import { create } from "zustand";
 import { shallow } from "zustand/shallow";
 import { devtools, persist } from "zustand/middleware";
 
-export const useBoundStore = create<ThemeSlice & MenuSlice>()(
+export const useBoundStore = create<ThemeSlice & MenuSlice & LocaleSlice>()(
 	devtools(
 		persist(
 			(...a) => ({
 				...createMenuSlice(...a),
-				...createThemeSlice(...a)
+				...createThemeSlice(...a),
+				...createLocaleSlice(...a)
 			}),
 			{ name: "RootStore" }
 		),

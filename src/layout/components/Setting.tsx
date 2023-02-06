@@ -2,12 +2,14 @@ import { Descriptions, Divider, Drawer, Radio, RadioChangeEvent, Switch, theme }
 import { useBoundStore, useShallowBoundStore } from "@/store";
 import { debounce } from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 type Props = {
 	open: boolean;
 	onClose: () => void;
 };
 const Setting = (props: Props) => {
+	const { t } = useTranslation();
 	const { token } = theme.useToken();
 	const { Item } = Descriptions;
 	const [themeType, changeTheme, primaryColor, changePrimaryColor, componentSize, changeComponentSize] = useShallowBoundStore(
@@ -51,10 +53,10 @@ const Setting = (props: Props) => {
 	// 预设颜色
 	const presetColors = useBoundStore(state => state.presetColors);
 	return (
-		<Drawer open={props.open} width={500} title={"系统设置"} onClose={props.onClose} placement={"right"}>
-			<Divider>样式设置</Divider>
+		<Drawer open={props.open} width={500} title={t("setting.title")} onClose={props.onClose} placement={"right"}>
+			<Divider>{t("setting.style.title")}</Divider>
 			<Descriptions column={1} bordered>
-				<Item label={"主题色"}>
+				<Item label={t("setting.style.color")}>
 					<input type="color" style={style} defaultValue={primaryColor} onChange={debounce(onColorChange, 250)} list={"colors"} />
 					<datalist id="colors">
 						{presetColors.map(color => (
@@ -62,26 +64,26 @@ const Setting = (props: Props) => {
 						))}
 					</datalist>
 				</Item>
-				<Item label={"暗色模式"}>
+				<Item label={t("setting.style.darkMode")}>
 					<Switch checked={themeType === "dark"} onChange={onSwitchChange}></Switch>
 				</Item>
-				<Item label={"组件大小"}>
+				<Item label={t("setting.style.componentSize")}>
 					<Radio.Group defaultValue={componentSize} onChange={radioChange}>
-						<Radio.Button value={"small"}>小</Radio.Button>
-						<Radio.Button value={"default"}>默认</Radio.Button>
-						<Radio.Button value={"large"}>大</Radio.Button>
+						<Radio.Button value={"small"}>{t("other.small")}</Radio.Button>
+						<Radio.Button value={"default"}>{t("other.default")}</Radio.Button>
+						<Radio.Button value={"large"}>{t("other.large")}</Radio.Button>
 					</Radio.Group>
 				</Item>
-				<Item label={"侧边栏样式"}>
+				<Item label={t("setting.style.sideBarStyle")}>
 					<Radio.Group defaultValue={siderBarStyle} onChange={siderChange}>
-						<Radio.Button value={"light"}>亮色</Radio.Button>
-						<Radio.Button value={"dark"}>暗色</Radio.Button>
+						<Radio.Button value={"light"}>{t("other.light")}</Radio.Button>
+						<Radio.Button value={"dark"}>{t("other.dark")}</Radio.Button>
 					</Radio.Group>
 				</Item>
 			</Descriptions>
-			<Divider>布局设置</Divider>
+			<Divider>{t("setting.layout.title")}</Divider>
 			<Descriptions bordered column={1}>
-				<Item label={"紧凑布局"}>
+				<Item label={t("setting.layout.compact")}>
 					<Switch checked={compact} onChange={toggleCompact}></Switch>
 				</Item>
 			</Descriptions>

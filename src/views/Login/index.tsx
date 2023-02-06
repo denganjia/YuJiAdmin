@@ -1,18 +1,22 @@
 import "./index.less";
-import bg from "@/assets/images/bg.svg";
-import { Button, Checkbox, Form, FormProps, Input, message, Space, theme, Typography } from "antd";
+import { Button, Checkbox, Dropdown, Form, FormProps, Input, message, Space, theme, Typography } from "antd";
 import { LockOutlined, TranslationOutlined, UserOutlined } from "@ant-design/icons";
 import { IconFont } from "@/components/Icon";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { login } from "@/api/modules";
 import { useShallowBoundStore } from "@/store";
+import { useTranslation } from "react-i18next";
+import LoginBg from "@/components/LoginBg/index";
 
 export default function Login() {
+	// 设置语言
+	const [locale, locales, changeLocale] = useShallowBoundStore(state => [state.locale, state.locales, state.changeLocale]);
+	// 国际化
+	const { t } = useTranslation();
 	const navigate = useNavigate();
 	const { token } = theme.useToken();
 	const [themeType, changeTheme] = useShallowBoundStore(state => [state.theme, state.changeTheme]);
-
 	const [style, setStyle] = useState<any>();
 	// 根据不同的主题 设置不同的登录框样式
 	useEffect(() => {
@@ -32,11 +36,11 @@ export default function Login() {
 	const onFinished: FormProps["onFinish"] = async val => {
 		const { code, data } = await login(val);
 		if (code === 200) {
-			message.success("欢迎登录");
+			message.success(t("login.loginSuccess"));
 			navigate("/dashboard");
 			localStorage.setItem("token", data.token);
 		} else {
-			message.error("账号密码不正确！");
+			message.error(t("login.errorAccountOrPwd"));
 		}
 	};
 	return (
@@ -50,7 +54,18 @@ export default function Login() {
 							changeTheme(themeType === "dark" ? "light" : "dark");
 						}}
 					></Button>
-					<Button type="text" icon={<TranslationOutlined style={{ fontSize: 16 }}></TranslationOutlined>}></Button>
+					<Dropdown
+						menu={{
+							items: locales,
+							selectable: true,
+							defaultSelectedKeys: [locale],
+							onClick: ({ key }) => {
+								changeLocale(key);
+							}
+						}}
+					>
+						<Button type="text" icon={<TranslationOutlined style={{ fontSize: 16 }}></TranslationOutlined>}></Button>
+					</Dropdown>
 				</Space>
 			</header>
 			<div className="login-box" style={style}>
@@ -65,27 +80,31 @@ export default function Login() {
 					onFinish={onFinished}
 					initialValues={{ account: "admin", password: "123456" }}
 				>
-					<Form.Item rules={[{ required: true, message: "请输入账号" }]} name={"account"}>
-						<Input prefix={<UserOutlined />} size={"large"} placeholder={"请输入账号:admin"}></Input>
+					<Form.Item rules={[{ required: true, message: t("login.form.account") ?? "" }]} name={"account"}>
+						<Input prefix={<UserOutlined />} size={"large"} placeholder={(t("login.form.account") ?? "") + ": admin"}></Input>
 					</Form.Item>
-					<Form.Item rules={[{ required: true, message: "请输入密码" }]} name={"password"}>
-						<Input.Password prefix={<LockOutlined />} size={"large"} placeholder={"请输入密码:123456"}></Input.Password>
+					<Form.Item rules={[{ required: true, message: t("login.form.password") ?? "" }]} name={"password"}>
+						<Input.Password
+							prefix={<LockOutlined />}
+							size={"large"}
+							placeholder={(t("login.form.password") ?? "") + ": 123456"}
+						></Input.Password>
 					</Form.Item>
 					<Form.Item>
 						<div className={"space"}>
-							<Checkbox>自动登录</Checkbox>
-							<Typography.Link>忘记密码？</Typography.Link>
+							<Checkbox>{t("login.autoLogin")}</Checkbox>
+							<Typography.Link>{t("login.forgotPassword")}</Typography.Link>
 						</div>
 					</Form.Item>
 					<Form.Item>
 						<Button block htmlType={"submit"} type={"primary"} size={"large"}>
-							登录
+							{t("login.login")}
 						</Button>
 					</Form.Item>
 				</Form>
 			</div>
 			<footer className="footer">
-				<img src={bg} alt="" />
+				<LoginBg></LoginBg>
 			</footer>
 		</div>
 	);

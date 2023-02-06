@@ -3,11 +3,12 @@ import { Card, Col, Row, theme } from "antd";
 import { IconFont } from "@/components/Icon";
 import "./index.less";
 import { Dashboard, getStatisticsApi } from "@/api/modules/dashborad";
+import { useTranslation } from "react-i18next";
 
 const Index: FC = () => {
 	const { token } = theme.useToken();
 	const [statistics, setStatistics] = useState<Partial<Dashboard.Statistics>>({});
-
+	const { t } = useTranslation();
 	useEffect(() => {
 		getStatisticsApi().then(({ data }) => {
 			setStatistics(data);
@@ -17,25 +18,25 @@ const Index: FC = () => {
 		{
 			name: "icon-user",
 			background: "rgb(174, 215, 255, 0.2)",
-			title: "总用户",
+			title: t("dashboard.totalUsers"),
 			value: statistics.user
 		},
 		{
 			name: "icon-download",
 			background: "rgb(255, 143, 73, 0.2)",
-			title: "下载量",
+			title: t("dashboard.downloads"),
 			value: statistics.download
 		},
 		{
 			name: "icon-online",
 			background: "rgb(128, 184, 248, 0.2)",
-			title: "当前在线",
+			title: t("dashboard.online"),
 			value: statistics.online
 		},
 		{
 			name: "icon-version",
 			background: "rgba(255, 163, 59, 0.2)",
-			title: "当前版本",
+			title: t("dashboard.version"),
 			value: statistics.version
 		}
 	];

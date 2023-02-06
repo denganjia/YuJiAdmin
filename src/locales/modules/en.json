@@ -1,0 +1,41 @@
+{
+	"dashboard": {
+		"totalUsers": "Total users",
+		"downloads": "Downloads",
+		"online": "Currently online",
+		"version": "Currently version"
+	},
+	"setting": {
+		"title": "System config",
+		"style": {
+			"title": "Style config",
+			"color": "Primary color",
+			"darkMode": "Dark mode",
+			"componentSize": "Component size",
+			"sideBarStyle": "Sidebar style"
+		},
+		"layout": {
+			"title": "Layout config",
+			"compact": "Compact layout"
+		}
+	},
+	"login": {
+		"logout": "Log Out",
+		"login": "Sign In",
+		"loginSuccess": "Welcome!",
+		"autoLogin": "Automatic Logon",
+		"forgotPassword": "Forgot Password?",
+		"form": {
+			"account": "Please enter the account number",
+			"password": "Please input a password"
+		},
+		"errorAccountOrPwd": "Incorrect account or password"
+	},
+	"other": {
+		"small": "Small",
+		"default": "Default",
+		"large": "Large",
+		"light": "Light",
+		"dark": "Dark"
+	}
+}

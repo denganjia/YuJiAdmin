@@ -6,6 +6,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import routerJson from "@/routes/router.json";
 import { transformJson } from "@/utils/transformJson";
 import { useBoundStore, useShallowBoundStore } from "@/store";
+import { changeLanguage } from "i18next";
 
 const App = () => {
 	// 暗色模式 和 主色切换
@@ -15,10 +16,12 @@ const App = () => {
 		state.componentSize,
 		state.compact
 	]);
+	// 设置正则路由
 	const initRegxRouteJson = useBoundStore(state => state.initRegxRouteJson);
 	transformJson(routerJson).then(res => {
 		initRegxRouteJson(res);
 	});
+	// 设置主体算法
 	const [algorithm, setAlgorithm] = useState([]);
 	useEffect(() => {
 		let res: any = [];
@@ -34,6 +37,9 @@ const App = () => {
 			return res;
 		});
 	}, [themeType, compact]);
+	// 设置语言
+	const locale = useBoundStore(state => state.locale);
+	changeLanguage(locale);
 	return (
 		<Suspense fallback={<Spin />}>
 			<ConfigProvider

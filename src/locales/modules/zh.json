@@ -1,0 +1,41 @@
+{
+	"dashboard": {
+		"totalUsers": "总用户",
+		"downloads": "下载量",
+		"online": "当前在线",
+		"version": "当前版本"
+	},
+	"setting": {
+		"title": "系统设置",
+		"style": {
+			"title": "样式设置",
+			"color": "主题色",
+			"darkMode": "暗色模式",
+			"componentSize": "组件大小",
+			"sideBarStyle": "侧边栏样式"
+		},
+		"layout": {
+			"title": "布局设置",
+			"compact": "紧凑布局"
+		}
+	},
+	"login": {
+		"login": "立即登录",
+		"loginSuccess": "登录成功!",
+		"autoLogin": "自动登录",
+		"forgotPassword": "忘记密码？",
+		"logout": "退出登录",
+		"form": {
+			"account": "请输入账号",
+			"password": "请输入密码"
+		},
+		"errorAccountOrPwd": "账号或密码不正确"
+	},
+	"other": {
+		"small": "小",
+		"default": "默认",
+		"large": "大",
+		"light": "亮色",
+		"dark": "暗色"
+	}
+}

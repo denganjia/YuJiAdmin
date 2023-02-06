@@ -1,4 +1,5 @@
 import { StateCreator } from "zustand";
+import { generate } from "@ant-design/colors";
 
 export interface ThemeSlice {
 	theme: "dark" | "light";
@@ -18,7 +19,12 @@ export const createThemeSlice: StateCreator<ThemeSlice, [["zustand/devtools", ne
 	theme: "dark",
 	changeTheme: payload => set(() => ({ theme: payload }), false, "theme/changeTheme"),
 	primaryColor: "#1890ff",
-	changePrimaryColor: payload => set(() => ({ primaryColor: payload }), false, "theme/changePrimaryColor"),
+	changePrimaryColor: payload =>
+		set(
+			state => ({ primaryColor: generate(payload, { theme: state.theme === "dark" ? "dark" : "default" })[5] }),
+			false,
+			"theme/changePrimaryColor"
+		),
 	componentSize: "default",
 	changeComponentSize: payload => set(() => ({ componentSize: payload }), false, "theme/changeComponentSize"),
 	siderBarStyle: "light",
