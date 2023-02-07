@@ -2,9 +2,16 @@ import qs from "qs";
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { Response } from "@/types";
 
+let baseURL = "/api";
+
+switch (import.meta.env.MODE) {
+	case "production":
+		baseURL = "https://mock.apifox.cn/m1/2197634-0-default";
+}
+
 const config: AxiosRequestConfig = {
 	// 基础路径
-	baseURL: "/api",
+	baseURL: baseURL,
 	// 超时时间
 	timeout: 10000,
 	// 跨域携带凭证
@@ -23,8 +30,8 @@ class Request {
 	constructor(config: AxiosRequestConfig) {
 		this.instance = axios.create(config);
 
-		// 注入token
-		this.instance.defaults.headers.common["apifoxToken"] = localStorage.getItem("token") ?? "";
+		// 注入 api-fox token
+		this.instance.defaults.headers.common["apifoxToken"] = "G6cVHTMApuN96h8pwS43D7RPRXcSt1Hw";
 		// 请求拦截器
 		this.instance.interceptors.request.use(
 			config => {
