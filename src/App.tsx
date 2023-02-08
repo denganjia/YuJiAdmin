@@ -17,11 +17,11 @@ const App = () => {
 		state.compact
 	]);
 	// 设置正则路由
-	const initRegxRouteJson = useBoundStore(state => state.initRegxRouteJson);
+	const initRegRouteJson = useBoundStore(state => state.initRegRouteJson);
 	transformJson(routerJson).then(res => {
-		initRegxRouteJson(res);
+		initRegRouteJson(res);
 	});
-	// 设置主体算法
+	// 设置主题算法
 	const [algorithm, setAlgorithm] = useState([]);
 	useEffect(() => {
 		let res: any = [];
@@ -39,7 +39,9 @@ const App = () => {
 	}, [themeType, compact]);
 	// 设置语言
 	const locale = useBoundStore(state => state.locale);
-	changeLanguage(locale);
+	useEffect(() => {
+		changeLanguage(locale);
+	}, [locale]);
 	return (
 		<Suspense fallback={<Spin />}>
 			<ConfigProvider

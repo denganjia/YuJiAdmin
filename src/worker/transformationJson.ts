@@ -1,13 +1,13 @@
 import { Routes } from "@/types";
 
-let matchRegx = /:.[^/]*/;
-let toRegx = ".*";
+let matchReg = /:.[^/]*/;
+let toReg = ".*";
 const transform = (routes: Routes, parent: string = "", arr: Routes = []) => {
 	try {
 		routes.forEach(route => {
 			let item = {
 				...route,
-				path: (parent + (route.path ?? "")).replace(matchRegx, toRegx)
+				path: (parent + (route.path ?? "")).replace(matchReg, toReg)
 			};
 			if (route.children?.length) {
 				item.children = transform(route.children, route.path);

@@ -9,14 +9,14 @@ export interface MenuSlice {
 	/**
 	 * @description 正则化后的路由JSON
 	 * */
-	regxRouteJson: Routes;
+	regRouteJson: Routes;
 	collapse: (payload: boolean) => void;
-	initRegxRouteJson: (payload: Routes) => void;
+	initRegRouteJson: (payload: Routes) => void;
 }
 
 export const createMenuSlice: StateCreator<MenuSlice, [["zustand/devtools", never]], [], MenuSlice> = set => ({
 	collapsed: false,
-	regxRouteJson: [],
+	regRouteJson: [],
 	collapse: payload => set(() => ({ collapsed: payload }), false, "menu/collapse"),
-	initRegxRouteJson: payload => set(() => ({ regxRouteJson: payload }), false, "menu/initRegxRouteJson")
+	initRegRouteJson: payload => set(() => ({ regRouteJson: payload }), false, "menu/initRegRouteJson")
 });

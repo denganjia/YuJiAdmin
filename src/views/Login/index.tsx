@@ -70,9 +70,10 @@ export default function Login() {
 			</header>
 			<div className="login-box" style={style}>
 				<div className="title">
-					<Typography.Title level={2} style={{ color: token.colorText }}>
+					<Typography.Title level={2} style={{ color: token.colorText, marginBottom: 0 }}>
 						YuJi-Admin
 					</Typography.Title>
+					<Typography.Text style={{ color: token.colorTextDescription }}>{t("login.subTitle")}</Typography.Text>
 				</div>
 				<Form
 					className="form"

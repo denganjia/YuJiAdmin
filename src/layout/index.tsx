@@ -9,7 +9,7 @@ import LeftContent from "./LeftContent";
 import { Config } from "@/config";
 import { useShallowBoundStore } from "@/store";
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Content, Footer } = Layout;
 const Index: FC = () => {
 	const [collapsed, collapse] = useShallowBoundStore(state => [state.collapsed, state.collapse]);
 	const siderBarStyle = useShallowBoundStore(state => state.siderBarStyle);
@@ -52,6 +52,9 @@ const Index: FC = () => {
 						<Outlet></Outlet>
 					</div>
 				</Content>
+				<Footer style={{ textAlign: "center", color: token.colorTextDescription }}>
+					<span>YuJi Admin Created by Chiyu</span>
+				</Footer>
 			</Layout>
 		</Layout>
 	);

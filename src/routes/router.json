@@ -35,11 +35,6 @@
 				"element": "System/Menu/index"
 			},
 			{
-				"path": "/monitor",
-				"label": "系统监控",
-				"element": "System/Monitor/index"
-			},
-			{
 				"path": "/rule",
 				"label": "角色管理",
 				"element": "System/Rule/index"

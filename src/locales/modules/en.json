@@ -29,7 +29,8 @@
 			"account": "Please enter the account number",
 			"password": "Please input a password"
 		},
-		"errorAccountOrPwd": "Incorrect account or password"
+		"errorAccountOrPwd": "Incorrect account or password",
+		"subTitle": "Lightweight React management system"
 	},
 	"other": {
 		"small": "Small",
@@ -37,5 +38,11 @@
 		"large": "Large",
 		"light": "Light",
 		"dark": "Dark"
+	},
+	"error": {
+		"notFound": "Sorry, the page you visited does not exist.",
+		"noAccess": "Sorry, you are not authorized to access this page.",
+		"error": "Sorry, something went wrong.",
+		"backToHome": "Back Home"
 	}
 }

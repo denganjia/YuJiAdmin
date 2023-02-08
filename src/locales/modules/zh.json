@@ -29,7 +29,8 @@
 			"account": "请输入账号",
 			"password": "请输入密码"
 		},
-		"errorAccountOrPwd": "账号或密码不正确"
+		"errorAccountOrPwd": "账号或密码不正确",
+		"subTitle": "轻量化React管理系统"
 	},
 	"other": {
 		"small": "小",
@@ -37,5 +38,11 @@
 		"large": "大",
 		"light": "亮色",
 		"dark": "暗色"
+	},
+	"error": {
+		"notFound": "就算拿显微镜来也找不到。",
+		"noAccess": "总有些门是对你关闭的。",
+		"error": "糟糕，好像出了点问题。",
+		"backToHome": "回到首页"
 	}
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "antd/es/style/reset.css";
 import dayjs from "dayjs";

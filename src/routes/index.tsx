@@ -1,5 +1,5 @@
 import { createHashRouter, RouteObject } from "react-router-dom";
-import ErrorPage from "@/error-page";
+import ErrorPage from "./components/index";
 import routerJSON from "./router.json";
 import { Routes } from "@/types";
 import Login from "@/views/Login/index";
@@ -46,7 +46,7 @@ export const router = createHashRouter([
 		path: "/",
 		element: <Layout></Layout>,
 		errorElement: <ErrorPage />,
-		children: children,
+		children: [{ errorElement: <ErrorPage />, children: children }],
 		loader: loader
 	},
 	{
@@ -55,3 +55,5 @@ export const router = createHashRouter([
 		errorElement: <ErrorPage />
 	}
 ]);
+
+console.log(router);
