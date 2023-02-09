@@ -8,7 +8,7 @@ export const useBreadcrumb = () => {
 	const location = useLocation();
 	const regRouter = useBoundStore(state => state.regRouteJson);
 	useEffect(() => {
-		const worker = new Worker(new URL("../worker/findBreadcrumb", import.meta.url));
+		const worker = new Worker(new URL("../worker/findBreadcrumb", import.meta.url), { type: "module" });
 		worker.postMessage({ path: location.pathname, routes: regRouter });
 		worker.onmessage = ev => {
 			setBreadcrumb(ev.data);

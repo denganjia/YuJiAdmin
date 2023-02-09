@@ -45,7 +45,9 @@ export default function Login() {
 			const { data: routes } = await getRoutesApi();
 			initRoutes(routes);
 			message.success(t("login.loginSuccess"));
-			navigate("/dashboard");
+			setTimeout(() => {
+				navigate("/dashboard");
+			});
 		} else {
 			message.error(t("login.errorAccountOrPwd"));
 		}

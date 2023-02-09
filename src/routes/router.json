@@ -6,6 +6,23 @@
 		"icon": "DashboardOutlined"
 	},
 	{
+		"path": "/editor",
+		"label": "编辑器",
+		"icon": "FileTextOutlined",
+		"children": [
+			{
+				"path": "/md-editor",
+				"label": "MD编辑器",
+				"element": "Editor/MdEditor/index"
+			},
+			{
+				"path": "/rich-text-editor",
+				"label": "富文本编辑器",
+				"element": "Editor/RichEditor/index"
+			}
+		]
+	},
+	{
 		"path": "/nested-menu",
 		"label": "嵌套路由",
 		"icon": "MenuFoldOutlined",

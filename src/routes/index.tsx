@@ -1,9 +1,9 @@
-import { createHashRouter, redirect, RouteObject } from "react-router-dom";
+import { createHashRouter, redirect, RouteObject, RouterProvider } from "react-router-dom";
 import ErrorPage from "./components/index";
 import NotFound from "./components/404";
 import { Routes } from "@/types";
 import Login from "@/views/Login/index";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Lazy from "@/components/Lazy";
 import Layout from "@/layout";
 import { Config } from "@/config";
@@ -37,38 +37,41 @@ const getRoutes = async (router?: Routes, parent: string = "", arr: any = []) =>
 	return arr;
 };
 
-const Index = () => {
+export default function Router() {
 	const routesJson = useBoundStore(state => state.routes);
-	const [children, setChildren] = useState([]);
+	let [children, setChildren] = useState([]);
 	useEffect(() => {
-		getRoutes(routesJson).then(res => {
-			setChildren(res);
-		});
-	}, [routesJson]);
-	return createHashRouter([
-		{
-			path: "/",
-			element: <Layout></Layout>,
-			errorElement: <ErrorPage />,
-			children: [{ errorElement: <ErrorPage />, children: children }],
-			loader() {
-				let token = localStorage.getItem("token");
-				console.log(token);
-				if (!token) {
-					return redirect("/login");
-				}
-				return {};
-			}
-		},
-		{
-			path: "/login",
-			element: <Login></Login>,
-			errorElement: <ErrorPage />
-		},
-		{
-			path: "*",
-			element: <NotFound></NotFound>
+		if (routesJson.length) {
+			getRoutes(routesJson).then(res => {
+				setChildren(res);
+			});
 		}
-	]);
-};
-export default Index;
+	}, [routesJson]);
+	const router = useMemo(() => {
+		return createHashRouter([
+			{
+				path: "/",
+				element: <Layout></Layout>,
+				errorElement: <ErrorPage />,
+				children: [{ errorElement: <ErrorPage />, children: children }],
+				loader() {
+					let token = localStorage.getItem("token");
+					if (!token) {
+						return redirect("/login");
+					}
+					return {};
+				}
+			},
+			{
+				path: "/login",
+				element: <Login></Login>,
+				errorElement: <ErrorPage />
+			},
+			{
+				path: "*",
+				element: <NotFound></NotFound>
+			}
+		]);
+	}, [children, routesJson]);
+	return <RouterProvider router={router}></RouterProvider>;
+}

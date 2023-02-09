@@ -1,12 +1,10 @@
 import zhCN from "antd/locale/zh_CN";
 import { ConfigProvider, Spin, theme } from "antd";
 import React, { Suspense, useEffect, useState } from "react";
-import routerJson from "@/routes/router.json";
 import { transformJson } from "@/utils/transformJson";
 import { useBoundStore, useShallowBoundStore } from "@/store";
 import { changeLanguage } from "i18next";
-import createRoute from "@/routes";
-import { RouterProvider } from "react-router-dom";
+import Router from "./routes";
 
 const App = () => {
 	// 暗色模式 和 主色切换
@@ -17,10 +15,12 @@ const App = () => {
 		state.compact
 	]);
 	// 设置正则路由
-	const initRegRouteJson = useBoundStore(state => state.initRegRouteJson);
-	transformJson(routerJson).then(res => {
-		initRegRouteJson(res);
-	});
+	const [routes, initRegRouteJson] = useShallowBoundStore(state => [state.routes, state.initRegRouteJson]);
+	useEffect(() => {
+		transformJson(routes).then(res => {
+			initRegRouteJson(res);
+		});
+	}, [routes]);
 	// 设置主题算法
 	const [algorithm, setAlgorithm] = useState([]);
 	useEffect(() => {
@@ -42,6 +42,7 @@ const App = () => {
 	useEffect(() => {
 		changeLanguage(locale);
 	}, [locale]);
+	// 路由
 	return (
 		<Suspense fallback={<Spin />}>
 			<ConfigProvider
@@ -52,7 +53,8 @@ const App = () => {
 				}}
 				componentSize={componentSize}
 			>
-				<RouterProvider router={createRoute()}></RouterProvider>
+				{/*{router && <RouterProvider router={router}></RouterProvider>}*/}
+				<Router></Router>
 			</ConfigProvider>
 		</Suspense>
 	);
