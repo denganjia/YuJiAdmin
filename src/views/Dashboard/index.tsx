@@ -2,10 +2,10 @@ import { FC, useEffect, useState } from "react";
 import { Card, Col, Row, theme } from "antd";
 import { IconFont } from "@/components/Icon";
 import "./index.less";
-import { Dashboard, getStatisticsApi, getHistogram, getPieData } from "@/api/modules/dashboard";
+import { Dashboard, getHistogram, getPieData, getStatisticsApi } from "@/api/modules/dashboard";
 import { useTranslation } from "react-i18next";
 import { Area, AreaConfig, Pie, PieConfig } from "@ant-design/charts";
-
+import pkg from "../../../package.json";
 // 面积图
 const AreaCharts = () => {
 	const [areaData, setAreaData] = useState<Dashboard.Histogram>([]);
@@ -110,7 +110,7 @@ const Index: FC = () => {
 			name: "icon-version",
 			background: "rgba(255, 163, 59, 0.2)",
 			title: t("dashboard.version"),
-			value: statistics.version
+			value: `v${pkg.version}`
 		}
 	];
 

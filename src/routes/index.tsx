@@ -1,12 +1,13 @@
-import { createHashRouter, RouteObject } from "react-router-dom";
+import { createHashRouter, redirect, RouteObject } from "react-router-dom";
 import ErrorPage from "./components/index";
-import routerJSON from "./router.json";
+import NotFound from "./components/404";
 import { Routes } from "@/types";
 import Login from "@/views/Login/index";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Lazy from "@/components/Lazy";
 import Layout from "@/layout";
 import { Config } from "@/config";
+import { useBoundStore } from "@/store";
 
 let modules = import.meta.glob("@/views/**/index.tsx", { eager: false }) as Record<string, any>;
 
@@ -35,25 +36,39 @@ const getRoutes = async (router?: Routes, parent: string = "", arr: any = []) =>
 	}
 	return arr;
 };
-let children = await getRoutes(routerJSON);
 
-// router afterEach 相当于路由请求钩子
-const loader = async () => {
-	return { code: 200, data: true };
+const Index = () => {
+	const routesJson = useBoundStore(state => state.routes);
+	const [children, setChildren] = useState([]);
+	useEffect(() => {
+		getRoutes(routesJson).then(res => {
+			setChildren(res);
+		});
+	}, [routesJson]);
+	return createHashRouter([
+		{
+			path: "/",
+			element: <Layout></Layout>,
+			errorElement: <ErrorPage />,
+			children: [{ errorElement: <ErrorPage />, children: children }],
+			loader() {
+				let token = localStorage.getItem("token");
+				console.log(token);
+				if (!token) {
+					return redirect("/login");
+				}
+				return {};
+			}
+		},
+		{
+			path: "/login",
+			element: <Login></Login>,
+			errorElement: <ErrorPage />
+		},
+		{
+			path: "*",
+			element: <NotFound></NotFound>
+		}
+	]);
 };
-export const router = createHashRouter([
-	{
-		path: "/",
-		element: <Layout></Layout>,
-		errorElement: <ErrorPage />,
-		children: [{ errorElement: <ErrorPage />, children: children }],
-		loader: loader
-	},
-	{
-		path: "/login",
-		element: <Login></Login>,
-		errorElement: <ErrorPage />
-	}
-]);
-
-console.log(router);
+export default Index;

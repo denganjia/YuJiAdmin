@@ -5,7 +5,7 @@ import resources from "@/locales/modules";
 i18next.use(initReactI18next).init({
 	fallbackLng: "zh",
 	lng: "zh",
-	debug: true,
+	debug: false,
 	resources: resources,
 	interpolation: {
 		escapeValue: false

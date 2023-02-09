@@ -1,8 +1,12 @@
-import { Result, theme } from "antd";
-import { CSSProperties, ReactNode } from "react";
+import { Button, Result, theme } from "antd";
+import { CSSProperties } from "react";
 import { useTranslation } from "react-i18next";
-import { useBoundStore } from "@/store/index";
-const Index = ({ extra }: { extra: ReactNode }) => {
+import { useBoundStore } from "@/store";
+import { Config } from "@/config";
+import { useNavigate } from "react-router-dom";
+
+const Index = () => {
+	const navigate = useNavigate();
 	const { t } = useTranslation();
 	const themeType = useBoundStore(state => state.theme);
 	const { token } = theme.useToken();
@@ -13,7 +17,21 @@ const Index = ({ extra }: { extra: ReactNode }) => {
 	};
 	return (
 		<div style={style}>
-			<Result status="404" subTitle={<span>{t("error.notFound")}</span>} extra={extra} />;
+			<Result
+				status="404"
+				subTitle={<span>{t("error.notFound")}</span>}
+				extra={
+					<Button
+						type="primary"
+						onClick={() => {
+							navigate(Config.HOME_URL);
+						}}
+					>
+						{t("error.backToHome")}
+					</Button>
+				}
+			/>
+			;
 		</div>
 	);
 };

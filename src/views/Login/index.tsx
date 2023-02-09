@@ -4,8 +4,8 @@ import { LockOutlined, TranslationOutlined, UserOutlined } from "@ant-design/ico
 import { IconFont } from "@/components/Icon";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { login } from "@/api/modules";
-import { useShallowBoundStore } from "@/store";
+import { getRoutesApi, login } from "@/api/modules";
+import { useBoundStore, useShallowBoundStore } from "@/store";
 import { useTranslation } from "react-i18next";
 import LoginBg from "@/components/LoginBg/index";
 
@@ -32,16 +32,24 @@ export default function Login() {
 		}
 	}, [themeType]);
 
+	// 注入路由
+	const initRoutes = useBoundStore(state => state.initRoutes);
+	// 登录按钮loading
+	const [loading, setLoading] = useState(false);
 	// 表单提交
 	const onFinished: FormProps["onFinish"] = async val => {
+		setLoading(true);
 		const { code, data } = await login(val);
 		if (code === 200) {
+			localStorage.setItem("token", data.token);
+			const { data: routes } = await getRoutesApi();
+			initRoutes(routes);
 			message.success(t("login.loginSuccess"));
 			navigate("/dashboard");
-			localStorage.setItem("token", data.token);
 		} else {
 			message.error(t("login.errorAccountOrPwd"));
 		}
+		setLoading(false);
 	};
 	return (
 		<div className="main-box" style={{ background: token.colorBgContainer }}>
@@ -98,7 +106,7 @@ export default function Login() {
 						</div>
 					</Form.Item>
 					<Form.Item>
-						<Button block htmlType={"submit"} type={"primary"} size={"large"}>
+						<Button block htmlType={"submit"} type={"primary"} size={"large"} loading={loading}>
 							{t("login.login")}
 						</Button>
 					</Form.Item>

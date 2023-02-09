@@ -23,16 +23,18 @@
 		"icon": "BugOutlined",
 		"children": [
 			{
-				"index": true,
-				"element": "System/Menu/index",
-				"data": {
-					"activeKey": "/system/menu"
-				}
-			},
-			{
 				"path": "/menu",
 				"label": "菜单管理",
 				"element": "System/Menu/index"
+			},
+			{
+				"path": "/menu/:id/detail",
+				"label": "菜单详情",
+				"element": "System/MenuDetail/index",
+				"isHide": true,
+				"data": {
+					"activeKey": "/system/menu"
+				}
 			},
 			{
 				"path": "/rule",

@@ -1,9 +1,8 @@
 import { Menu } from "antd";
 import React, { FC, useEffect, useState } from "react";
 import { useLocation, useMatches, useNavigate } from "react-router-dom";
-import router from "@/routes/router.json";
 import { getMenuItems } from "@/utils/getMenuItems";
-import { useShallowBoundStore } from "@/store";
+import { useBoundStore, useShallowBoundStore } from "@/store";
 
 export const Nav: FC = () => {
 	const navigate = useNavigate();
@@ -11,8 +10,10 @@ export const Nav: FC = () => {
 	const matches = useMatches();
 	const [activeKey, setActiveKey] = useState<string[]>([]);
 	const siderBarStyle = useShallowBoundStore(state => state.siderBarStyle);
+
+	const routes = useBoundStore(state => state.routes);
 	// 根据JSON获取左侧可见路由
-	const items = getMenuItems(router);
+	const items = getMenuItems(routes);
 	const menuSelect = ({ key }: any) => {
 		navigate(key);
 		setActiveKey([key]);

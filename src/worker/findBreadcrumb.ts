@@ -2,14 +2,14 @@ import { Routes } from "@/types";
 
 let result: Routes = [];
 
-const findBreadcrumb = (path: string, routes: Routes, parent: string = "") => {
+const findBreadcrumb = (path: string, routes: Routes) => {
 	try {
 		routes.forEach(route => {
 			result.push(route);
-			if (new RegExp(`^${parent + route.path}$`).test(path)) {
+			if (new RegExp(`^${route.path}$`).test(path)) {
 				postMessage(result);
 			} else if (route.children?.length) {
-				findBreadcrumb(path, route.children, route.path);
+				findBreadcrumb(path, route.children);
 			}
 			result.pop();
 		});
