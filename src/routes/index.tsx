@@ -3,7 +3,7 @@ import ErrorPage from "./components/index";
 import NotFound from "./components/404";
 import { Routes } from "@/types";
 import Login from "@/views/Login/index";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import Lazy from "@/components/Lazy";
 import Layout from "@/layout";
 import { Config } from "@/config";
@@ -37,7 +37,7 @@ const getRoutes = async (router?: Routes, parent: string = "", arr: any = []) =>
 	return arr;
 };
 
-export default function Router() {
+const Router = () => {
 	const routesJson = useBoundStore(state => state.routes);
 	let [children, setChildren] = useState([]);
 	useEffect(() => {
@@ -74,4 +74,5 @@ export default function Router() {
 		]);
 	}, [children, routesJson]);
 	return <RouterProvider router={router}></RouterProvider>;
-}
+};
+export default memo(Router);

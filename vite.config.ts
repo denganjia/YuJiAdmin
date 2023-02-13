@@ -1,12 +1,19 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
 import { resolve } from "path";
 import { theme } from "antd";
-
+import usePluginImport from "vite-plugin-importer";
 const { defaultAlgorithm, defaultSeed } = theme;
 const defaultMapToken = defaultAlgorithm(defaultSeed);
 export default defineConfig({
-	plugins: [react()],
+	plugins: [
+		react(),
+		usePluginImport({
+			libraryName: "@icon-park/react",
+			libraryDirectory: "es/icons",
+			camel2DashComponentName: false
+		})
+	],
 	resolve: {
 		alias: {
 			"@": resolve(__dirname, "./src/")

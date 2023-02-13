@@ -52,7 +52,7 @@ const Index: FC = () => {
 						<Outlet></Outlet>
 					</div>
 				</Content>
-				<Footer style={{ textAlign: "center", color: token.colorTextDescription }}>
+				<Footer style={{ textAlign: "center", color: token.colorTextDescription, padding: "10px 0" }}>
 					<span>YuJi Admin Created by Chiyu</span>
 				</Footer>
 			</Layout>

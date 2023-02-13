@@ -20,7 +20,7 @@ const App = () => {
 		transformJson(routes).then(res => {
 			initRegRouteJson(res);
 		});
-	}, [routes]);
+	}, []);
 	// 设置主题算法
 	const [algorithm, setAlgorithm] = useState([]);
 	useEffect(() => {
@@ -53,7 +53,6 @@ const App = () => {
 				}}
 				componentSize={componentSize}
 			>
-				{/*{router && <RouterProvider router={router}></RouterProvider>}*/}
 				<Router></Router>
 			</ConfigProvider>
 		</Suspense>

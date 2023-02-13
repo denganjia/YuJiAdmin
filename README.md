@@ -10,6 +10,8 @@ yarn install #  or `npm install`
 yarn dev # or `npm run dev`
 ```
 
+> 本项目使用的图标库是`@ant-design/icons`和`@icon-park/react`
+
 # 特性 🔥🔥🔥
 
 - [x] 暗黑模式 🌌

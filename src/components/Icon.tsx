@@ -15,5 +15,5 @@ export const Icon: FC<Props> = props => {
 };
 
 export const IconFont = AntIcon.createFromIconfontCN({
-	scriptUrl: ["//at.alicdn.com/t/c/font_2336614_dvhjuk6vydk.js"]
+	scriptUrl: ["//at.alicdn.com/t/c/font_2336614_fr949zaey9u.js"]
 });
