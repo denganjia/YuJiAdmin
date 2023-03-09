@@ -8,7 +8,7 @@ import { getRoutesApi, login } from "@/api/modules";
 import { useBoundStore, useShallowBoundStore } from "@/store";
 import { useTranslation } from "react-i18next";
 import LoginBg from "@/components/LoginBg/index";
-
+import { Config } from "../../config";
 export default function Login() {
 	// 设置语言
 	const [locale, locales, changeLocale] = useShallowBoundStore(state => [state.locale, state.locales, state.changeLocale]);
@@ -44,9 +44,10 @@ export default function Login() {
 			localStorage.setItem("token", data.token);
 			const { data: routes } = await getRoutesApi();
 			initRoutes(routes);
-			message.success(t("login.loginSuccess"));
-			setTimeout(() => {
-				navigate("/dashboard");
+			message.success(t("login.loginSuccess")).then(() => {
+				setTimeout(() => {
+					navigate(Config.HOME_URL);
+				});
 			});
 		} else {
 			message.error(t("login.errorAccountOrPwd"));

@@ -59,5 +59,11 @@
 				"element": "System/Rule/index"
 			}
 		]
+	},
+	{
+		"path": "/doc",
+		"element": "Doc/index",
+		"label": "项目文档",
+		"icon": "FileTextOutlined"
 	}
 ]
