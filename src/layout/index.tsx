@@ -1,5 +1,5 @@
 import { Layout, theme } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { FC, useEffect } from "react";
 import "./index.less";
 import logo from "@/assets/images/logo.png";
@@ -8,7 +8,6 @@ import RightContent from "./Right-Content";
 import LeftContent from "./LeftContent";
 import { Config } from "@/config";
 import { useShallowBoundStore } from "@/store";
-import KeepAlive from "@/components/keepAlive";
 
 const { Header, Sider, Content, Footer } = Layout;
 const Index: FC = () => {
@@ -50,8 +49,8 @@ const Index: FC = () => {
 				</Header>
 				<Content>
 					<div className="content" style={{ color: token.colorText }}>
-						{/*<Outlet></Outlet>*/}
-						<KeepAlive></KeepAlive>
+						<Outlet></Outlet>
+						{/*<KeepAlive></KeepAlive>*/}
 					</div>
 				</Content>
 				<Footer style={{ textAlign: "center", color: token.colorTextDescription, padding: "10px 0" }}>

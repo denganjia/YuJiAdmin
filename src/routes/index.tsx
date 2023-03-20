@@ -1,6 +1,5 @@
 import { createHashRouter, redirect, RouteObject, RouterProvider } from "react-router-dom";
 import ErrorPage from "./components/index";
-import NotFound from "./components/404";
 import { Routes } from "@/types";
 import Login from "@/views/Login/index";
 import React, { useEffect, useMemo, useState } from "react";
@@ -9,6 +8,7 @@ import Layout from "@/layout";
 import { Config } from "@/config";
 import { useBoundStore } from "@/store";
 import Loading from "@/components/Loading";
+import NotFound from "./components/404";
 
 let modules = import.meta.glob("@/views/**/index.tsx", { eager: false }) as Record<string, any>;
 
