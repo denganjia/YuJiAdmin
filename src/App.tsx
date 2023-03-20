@@ -15,12 +15,12 @@ const App = () => {
 		state.compact
 	]);
 	// 设置正则路由
-	const [routes, initRegRouteJson] = useShallowBoundStore(state => [state.routes, state.initRegRouteJson]);
+	const [routes, initRegRouteJson] = useShallowBoundStore(state => [state.jsonRoutes, state.initRegRouteJson]);
 	useEffect(() => {
 		transformJson(routes).then(res => {
 			initRegRouteJson(res);
 		});
-	}, []);
+	}, [routes]);
 	// 设置主题算法
 	const [algorithm, setAlgorithm] = useState([]);
 	useEffect(() => {

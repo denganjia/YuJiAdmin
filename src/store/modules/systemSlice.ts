@@ -2,11 +2,16 @@ import { StateCreator } from "zustand";
 import { Routes } from "@/types";
 
 export interface SystemSlice {
-	routes: Routes;
-	initRoutes: (payload: any) => void;
+	jsonRoutes: Routes;
+	initJsonRoutes: (payload: any) => Promise<void>;
 }
 
 export const createSystemSlice: StateCreator<SystemSlice, [["zustand/devtools", never]], [], SystemSlice> = set => ({
-	routes: [],
-	initRoutes: payload => set(() => ({ routes: payload }), false, "systemSlice/initRoutes")
+	jsonRoutes: [],
+	initJsonRoutes: payload => {
+		return new Promise(resolve => {
+			set(() => ({ jsonRoutes: payload }), false, "systemSlice/initRoutes");
+			resolve();
+		});
+	}
 });

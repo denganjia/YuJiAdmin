@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -14,6 +14,7 @@ const System: FC = () => {
 			>
 				详情
 			</Button>
+			<Input></Input>
 		</div>
 	);
 };

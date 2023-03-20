@@ -8,7 +8,8 @@ import { getRoutesApi, login } from "@/api/modules";
 import { useBoundStore, useShallowBoundStore } from "@/store";
 import { useTranslation } from "react-i18next";
 import LoginBg from "@/components/LoginBg/index";
-import { Config } from "../../config";
+import { Config } from "@/config";
+
 export default function Login() {
 	// 设置语言
 	const [locale, locales, changeLocale] = useShallowBoundStore(state => [state.locale, state.locales, state.changeLocale]);
@@ -33,7 +34,7 @@ export default function Login() {
 	}, [themeType]);
 
 	// 注入路由
-	const initRoutes = useBoundStore(state => state.initRoutes);
+	const initRoutes = useBoundStore(state => state.initJsonRoutes);
 	// 登录按钮loading
 	const [loading, setLoading] = useState(false);
 	// 表单提交
@@ -43,12 +44,9 @@ export default function Login() {
 		if (code === 200) {
 			localStorage.setItem("token", data.token);
 			const { data: routes } = await getRoutesApi();
-			initRoutes(routes);
-			message.success(t("login.loginSuccess")).then(() => {
-				setTimeout(() => {
-					navigate(Config.HOME_URL);
-				});
-			});
+			await initRoutes(routes);
+			message.success(t("login.loginSuccess"));
+			navigate(Config.HOME_URL);
 		} else {
 			message.error(t("login.errorAccountOrPwd"));
 		}

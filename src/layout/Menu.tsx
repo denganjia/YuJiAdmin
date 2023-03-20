@@ -11,7 +11,7 @@ export const Nav: FC = () => {
 	const [activeKey, setActiveKey] = useState<string[]>([]);
 	const siderBarStyle = useShallowBoundStore(state => state.siderBarStyle);
 
-	const routes = useBoundStore(state => state.routes);
+	const routes = useBoundStore(state => state.jsonRoutes);
 	// 根据JSON获取左侧可见路由
 	const items = getMenuItems(routes);
 	const menuSelect = ({ key }: any) => {

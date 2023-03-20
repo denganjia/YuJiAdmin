@@ -3,11 +3,12 @@ import ErrorPage from "./components/index";
 import NotFound from "./components/404";
 import { Routes } from "@/types";
 import Login from "@/views/Login/index";
-import React, { memo, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Lazy from "@/components/Lazy";
 import Layout from "@/layout";
 import { Config } from "@/config";
 import { useBoundStore } from "@/store";
+import Loading from "@/components/Loading";
 
 let modules = import.meta.glob("@/views/**/index.tsx", { eager: false }) as Record<string, any>;
 
@@ -38,15 +39,14 @@ const getRoutes = async (router?: Routes, parent: string = "", arr: any = []) =>
 };
 
 const Router = () => {
-	const routesJson = useBoundStore(state => state.routes);
-	let [children, setChildren] = useState([]);
+	const routesJson = useBoundStore(state => state.jsonRoutes);
+	let [children, setChildren] = useState<any[]>([]);
 	useEffect(() => {
-		if (routesJson.length) {
-			getRoutes(routesJson).then(res => {
-				setChildren(res);
-			});
-		}
+		getRoutes(routesJson).then(res => {
+			setChildren(res);
+		});
 	}, [routesJson]);
+	console.log(children);
 	const router = useMemo(() => {
 		return createHashRouter([
 			{
@@ -59,6 +59,7 @@ const Router = () => {
 					if (!token) {
 						return redirect("/login");
 					}
+					redirect(Config.HOME_URL);
 					return {};
 				}
 			},
@@ -73,6 +74,6 @@ const Router = () => {
 			}
 		]);
 	}, [children, routesJson]);
-	return <RouterProvider router={router}></RouterProvider>;
+	return <RouterProvider router={router} fallbackElement={<Loading></Loading>}></RouterProvider>;
 };
-export default memo(Router);
+export default Router;

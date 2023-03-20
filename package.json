@@ -27,6 +27,7 @@
 		"@types/lodash": "^4.14.191",
 		"@wangeditor/editor": "^5.1.23",
 		"@wangeditor/editor-for-react": "^1.0.6",
+		"ahooks": "^3.7.5",
 		"antd": "^5.0.2",
 		"axios": "^1.2.2",
 		"i18next": "^22.4.9",
