@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/denganjia/YuJiAdmin/compare/v0.0.5...v0.0.6) (2023-03-20)
+
+
+### Features
+
+* 🚀 1.增加路由错误处理页面 ([54462a4](https://github.com/denganjia/YuJiAdmin/commit/54462a4f13bd4fd3ad3c31dc826886746906ff67))
+* 🚀 动态路由 ([5cdcdd4](https://github.com/denganjia/YuJiAdmin/commit/5cdcdd4e8aa406e15a3807f035bd7918dfa53cf5))
+* 🚀 功能调整 ([c076fa3](https://github.com/denganjia/YuJiAdmin/commit/c076fa3aa3e802ca7b8116702dd13ee015e74231))
+* 🚀 增加KeepAlive组件 ([d70b2ab](https://github.com/denganjia/YuJiAdmin/commit/d70b2ab16a489417e5b3d4239de05b364dd89717))
+* 🚀 md编辑器和富文本编辑器模板 ([288191f](https://github.com/denganjia/YuJiAdmin/commit/288191fadbcb95ee5bf5ce75e4a823bdb4911680))
+
+
+### Bug Fixes
+
+* 🧩 修复刷新页面时会闪烁404的bug ([812b4ab](https://github.com/denganjia/YuJiAdmin/commit/812b4abe677c2374235ee668774af5a003ce3a72))
+* 🧩 修改动态路由下，切换主题会导致页面重新渲染的BUG ([fa68224](https://github.com/denganjia/YuJiAdmin/commit/fa68224d925020fbe06388e6cb8d3829ce8b6f6b))
+
 ### 0.0.5 (2023-02-07)
 
 
