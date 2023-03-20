@@ -46,7 +46,6 @@ const Router = () => {
 			setChildren(res);
 		});
 	}, [routesJson]);
-	console.log(children);
 	const router = useMemo(() => {
 		return createHashRouter([
 			{
@@ -56,10 +55,11 @@ const Router = () => {
 				children: [{ errorElement: <ErrorPage />, children: children }],
 				loader() {
 					let token = localStorage.getItem("token");
-					if (!token) {
-						return redirect("/login");
+					if (!token || !routesJson.length) {
+						redirect("/login");
+					} else {
+						redirect(Config.HOME_URL);
 					}
-					redirect(Config.HOME_URL);
 					return {};
 				}
 			},
