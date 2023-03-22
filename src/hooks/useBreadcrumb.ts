@@ -6,14 +6,14 @@ import { useBoundStore } from "@/store";
 export const useBreadcrumb = () => {
 	const [breadcrumb, setBreadcrumb] = useState<Routes>([]);
 	const location = useLocation();
-	const regRouter = useBoundStore(state => state.regRouteJson);
+	const storedBreadcrumb = useBoundStore(state => state.breadcrumb);
 	useEffect(() => {
-		const worker = new Worker(new URL("../worker/findBreadcrumb", import.meta.url), { type: "module" });
-		worker.postMessage({ path: location.pathname, routes: regRouter });
-		worker.onmessage = ev => {
-			setBreadcrumb(ev.data);
-			worker.terminate();
-		};
+		const keys = Object.keys(storedBreadcrumb);
+		keys.forEach(key => {
+			if (new RegExp(`${key}`).test(location.pathname)) {
+				setBreadcrumb(storedBreadcrumb[key]);
+			}
+		});
 	}, [location]);
 	return breadcrumb;
 };
